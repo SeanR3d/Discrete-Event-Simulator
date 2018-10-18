@@ -1,38 +1,38 @@
-		*****Giorgioís Discrete Event Simulator*****
-				September 15, 2018
-				by Sean Reddington
+					*****Giorgio‚Äôs Discrete Event Simulator*****
+							September 15, 2018
+							by Sean Reddington
 
 This is the first assignment of CIS3207 which aim to give us some understanding to how processes move through a computing system.
 The overall program works by moving JOBS through different server components of a computer which include: CPU, DISK1, and DISK 2.
 These jobs are serviced within these components for an allotted amount of time, determined by a random number generator and the
 config values below, before letting other jobs be serviced as well. To keep track of what is happening in the simulation, EVENTS
-are stored in an EVENT QUEUE and controls the overall flow of the program by ìpoppingî each event from the priority queue within
+are stored in an EVENT QUEUE and controls the overall flow of the program by ‚Äúpopping‚Äù each event from the priority queue within
 the main while loop. There are 5 different header files in which I will break down:
 
-ï	Config file
-ï	Jobs
-ï	Events and the event queue
-ï	Servers and the server queues
+‚Ä¢	Config file
+‚Ä¢	Jobs
+‚Ä¢	Events and the event queue
+‚Ä¢	Servers and the server queues
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 CONFIG FILE
 
-The configFile.h header is used to read and set the following values from a .cnf file (ìdes_config.cnfî) that the simulation uses
+The configFile.h header is used to read and set the following values from a .cnf file (‚Äúdes_config.cnf‚Äù) that the simulation uses
 throughout the program:
 
-ï	SEED: The seed for the random number generator
-ï	INIT_TIME: The initial time that the simulator starts at
-ï	FIN_TIME: The finishing time of the simulation
-ï	ARRIVE_MIN: The minimum probability that a new job arrives in the system
-ï	ARRIVE_MAX: The maximum probability that a new job arrives in the system
-ï	QUIT_PROB: The probability that a job completes and quits/leaves the simulation
-ï	CPU_MIN: The minimum time the CPU services a job for
-ï	CPU_MAX: The maximum time the CPU services a job for
-ï	DISK1_MIN: The minimum time DISK1 services a job for
-ï	DISK1_MAX: The maximum time DISK1 services a job for
-ï	DISK2_MIN: The minimum time DISK2 services a job for
-ï	DISK2_MAX: The maximum time DISK2 services a job for
+‚Ä¢	SEED: The seed for the random number generator
+‚Ä¢	INIT_TIME: The initial time that the simulator starts at
+‚Ä¢	FIN_TIME: The finishing time of the simulation
+‚Ä¢	ARRIVE_MIN: The minimum probability that a new job arrives in the system
+‚Ä¢	ARRIVE_MAX: The maximum probability that a new job arrives in the system
+‚Ä¢	QUIT_PROB: The probability that a job completes and quits/leaves the simulation
+‚Ä¢	CPU_MIN: The minimum time the CPU services a job for
+‚Ä¢	CPU_MAX: The maximum time the CPU services a job for
+‚Ä¢	DISK1_MIN: The minimum time DISK1 services a job for
+‚Ä¢	DISK1_MAX: The maximum time DISK1 services a job for
+‚Ä¢	DISK2_MIN: The minimum time DISK2 services a job for
+‚Ä¢	DISK2_MAX: The maximum time DISK2 services a job for
 
 When a new job arrives in the system and begins being processed, the time which a new job arrives is also determined. This is done
 by using a random number generator to roll a number between ARRIVE_MIN and ARRIVE_MAX. The sum of the randomly generated number and
@@ -56,7 +56,7 @@ containing information for each job such as the job number, event time, and serv
 EVENTS AND EVENT QUEUE
 
 The eventQueue header file contains both the struct for EVENTS and the EVENTQUEUE. Events contain information about what is being
-processed at a certain time in the simulation. Each event tells what time an event is happening, a pointer to the JOB, the jobís number,
+processed at a certain time in the simulation. Each event tells what time an event is happening, a pointer to the JOB, the job‚Äôs number,
 the action time in which the event happened and the type of event by the enum datatype, EVENTCASE.
 
 The EVENTQUEUE is a priority queue data structure that has min heap properties. When events is created during the simulation,
@@ -72,4 +72,4 @@ The server header file contains data for each SERVER struct in the simulation i.
 to the job its currently servicing, hold long the server will service that job, and other variables used for statistics. Each server
 also has a SERVERQUEUE which is a linked list data structure holding JOBS waiting to enter the server. Once a server has finished
 servicing a job, it will then determine where the job is sent to next. Then it will remove the job at the head of its queue and begin
-servicing it. The determine_DISK function will send the CPUís finished job to one of the two disks depending on which one is less busy.
+servicing it. The determine_DISK function will send the CPU‚Äôs finished job to one of the two disks depending on which one is less busy.
