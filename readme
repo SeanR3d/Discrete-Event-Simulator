@@ -1,6 +1,6 @@
-												*****Giorgio’s Discrete Event Simulator*****
-														September 15, 2018
-														by Sean Reddington
+		*****Giorgio’s Discrete Event Simulator*****
+				September 15, 2018
+				by Sean Reddington
 
 This is the first assignment of CIS3207 which aim to give us some understanding to how processes move through a computing system.
 The overall program works by moving JOBS through different server components of a computer which include: CPU, DISK1, and DISK 2.
@@ -16,7 +16,7 @@ the main while loop. There are 5 different header files in which I will break do
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-Config file
+CONFIG FILE
 
 The configFile.h header is used to read and set the following values from a .cnf file (“des_config.cnf”) that the simulation uses
 throughout the program:
@@ -46,14 +46,14 @@ for how long a job is to be serviced for at the designated server.
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 
-Jobs
+JOBS
 
 The jobs header file holds information for the jobs that are processed within the simulator. The JOBS are created using a struct
 containing information for each job such as the job number, event time, and server arrival time.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-Events and Event Queue
+EVENTS AND EVENT QUEUE
 
 The eventQueue header file contains both the struct for EVENTS and the EVENTQUEUE. Events contain information about what is being
 processed at a certain time in the simulation. Each event tells what time an event is happening, a pointer to the JOB, the job’s number,
@@ -66,7 +66,7 @@ it is inserted into the EVENTQUEUE and indexed according to how soon the event w
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 
-Servers and Server Queue
+SERVER AND SERVER QUEUE
 
 The server header file contains data for each SERVER struct in the simulation i.e. CPU, DISK1, DISK2. Each server contains a pointer
 to the job its currently servicing, hold long the server will service that job, and other variables used for statistics. Each server
