@@ -1,0 +1,47 @@
+	*****Giorgio’s Discrete Event Simulator*****
+		September 15, 2018
+		by Sean Reddington
+
+This is the first assignment of CIS3207 which aim to give us some understanding to how processes move through a computing system. The overall program works by moving JOBS through different server components of a computer which include: CPU, DISK1, and DISK 2. These jobs are serviced within these components for an allotted amount of time, determined by a random number generator and the config values below, before letting other jobs be serviced as well. To keep track of what is happening in the simulation, EVENTS are stored in an EVENT QUEUE and controls the overall flow of the program by “popping” each event from the priority queue within the main while loop. There are 5 different header files in which I will break down:
+
+•	Config file
+•	Jobs
+•	Events and the event queue
+•	Servers and the server queues
+
+Config file
+
+The configFile.h header is used to read and set the following values from a .cnf file (“des_config.cnf”) that the simulation uses throughout the program:
+
+•	SEED: The seed for the random number generator
+•	INIT_TIME: The initial time that the simulator starts at
+•	FIN_TIME: The finishing time of the simulation
+•	ARRIVE_MIN: The minimum probability that a new job arrives in the system
+•	ARRIVE_MAX: The maximum probability that a new job arrives in the system
+•	QUIT_PROB: The probability that a job completes and quits/leaves the simulation
+•	CPU_MIN: The minimum time the CPU services a job for
+•	CPU_MAX: The maximum time the CPU services a job for
+•	DISK1_MIN: The minimum time DISK1 services a job for
+•	DISK1_MAX: The maximum time DISK1 services a job for
+•	DISK2_MIN: The minimum time DISK2 services a job for
+•	DISK2_MAX: The maximum time DISK2 services a job for
+
+When a new job arrives in the system and begins being processed, the time which a new job arrives is also determined. This is done by using a random number generator to roll a number between ARRIVE_MIN and ARRIVE_MAX. The sum of the randomly generated number and the CURRENT_TIME of the simulation then gives us the time at which that next job will arrive.
+
+When the CPU is done servicing a job, there is a chance that the job was finished and can leave the simulation. The default QUIT_PROB is 0.2 or 20%
+
+The rest of the values are used to determine a range that a random number generator will roll for how long a job is to be serviced for at the designated server.
+
+Jobs
+
+The jobs header file holds information for the jobs that are processed within the simulator. The JOBS are created using a struct containing information for each job such as the job number, event time, and server arrival time.
+
+Events and Event Queue
+
+The eventQueue header file contains both the struct for EVENTS and the EVENTQUEUE. Events contain information about what is being processed at a certain time in the simulation. Each event tells what time an event is happening, a pointer to the JOB, the job’s number, the action time in which the event happened and the type of event by the enum datatype, EVENTCASE.
+
+The EVENTQUEUE is a priority queue data structure that has min heap properties. When events is created during the simulation, it is inserted into the EVENTQUEUE and indexed according to how soon the event will happen.
+
+Servers and Server Queue
+
+The server header file contains data for each SERVER struct in the simulation i.e. CPU, DISK1, DISK2. Each server contains a pointer to the job its currently servicing, hold long the server will service that job, and other variables used for statistics. Each server also has a SERVERQUEUE which is a linked list data structure holding JOBS waiting to enter the server. Once a server has finished servicing a job, it will then determine where the job is sent to next. Then it will remove the job at the head of its queue and begin servicing it. The determine_DISK function will send the CPU’s finished job to one of the two disks depending on which one is less busy.
